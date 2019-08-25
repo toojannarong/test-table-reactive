@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
-Vue.use(Vuex)
+import seats from '@/store/module/seats/seats';
+Vue.use(Vuex);
 
 export default new Vuex.Store({
+  modules: {
+    seats
+  },
   state: {
 
   },
