@@ -16,7 +16,7 @@ const mutations = {
         console.log('[Store][Seats][REMOVE_SELECTED_SEAT]');
         const findIndex = state.seats.indexOf(seat);
         if (findIndex !== -1) {
-            state.seats.splice(findIndex);
+            state.seats.splice(findIndex, 1);
         }
 
     }
