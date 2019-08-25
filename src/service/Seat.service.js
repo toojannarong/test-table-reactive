@@ -6,8 +6,8 @@ class SeatService {
             setTimeout(() => {
                 console.log(`[SeatService][getSeatGrid] `);
                 // Empty Grid
-                const numRows = 10;
-                const numCols = 10;
+                const numRows = 50;
+                const numCols = 50;
                 for (let i = 0; i < numRows; i++) {
                     grid[i] = [];
                 }

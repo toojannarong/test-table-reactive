@@ -1,5 +1,5 @@
 <template>
-    <td @click.prevent="toggleSeat(i, j)" :class="seatColor(i, j)">
+    <td @click.prevent="toggleSeat(i, j)" :class="{selectedSeat: selected}">
         {{ grid[i][j].data.code }}
     </td>
 </template>
@@ -15,6 +15,9 @@
             i: Number,
             j: Number
         },
+        data: () => ({
+           selected: false
+        }),
         methods: {
             toggleSeat() {
                 const [i, j] = [this.i, this.j];
@@ -22,17 +25,12 @@
                 console.log(`[toggleSeat] (${i}, ${j})`, seat);
                 const selected = seat.selected;
                 const toSelect = !selected;
+                this.selected = toSelect;
                 this.$set(seat, "selected", toSelect);
                 if (toSelect) {
                     this[ADD_SELECTED_SEAT](seat.data);
                 } else {
                     this[REMOVE_SELECTED_SEAT](seat.data);
-                }
-            },
-            seatColor(i, j) {
-                const seat = this.grid[i][j];
-                return {
-                    selectedSeat: seat && seat.selected
                 }
             },
             ...mapMutations([ADD_SELECTED_SEAT, REMOVE_SELECTED_SEAT])

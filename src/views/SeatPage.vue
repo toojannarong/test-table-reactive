@@ -16,7 +16,7 @@ import Seat from "@/components/Seat.vue";
 import {createNamespacedHelpers} from "vuex";
 const { mapGetters } = createNamespacedHelpers('seats');
   export default {
-    name: 'about',
+    name: 'SeatPage',
     components: {
       Seat
     },
@@ -26,18 +26,22 @@ const { mapGetters } = createNamespacedHelpers('seats');
     async beforeRouteEnter(to, from, next) {
       LoadingService.show();
       const result = await SeatService.getSeatGrid();
-      console.log(`[beforeRouteEnter] result`, result);
+      console.log(`[beforeRouteEnter]`);
       next(vm => {
-        // // Empty Grid
-        for (let i = 0; i < result.length; i++) {
-          vm.$set(vm.grid, i, []);
-        }
+        // // // Empty Grid
+        // for (let i = 0; i < result.length; i++) {
+        //   vm.$set(vm.grid, i, []);
+        // }
+        //
+        // for (let i = 0; i < result.length; i++) {
+        //   for (let j = 0; j < result[i].length; j++) {
+        //     vm.$set(vm.grid[i], j, result[i][j]);
+        //   }
+        // }
 
-        for (let i = 0; i < result.length; i++) {
-          for (let j = 0; j < result[i].length; j++) {
-            vm.$set(vm.grid[i], j, result[i][j]);
-          }
-        }
+        // Object.seal() so that  VueJS cannot add reactivity.
+        vm.grid = Object.seal(result);
+        console.log(`[beforeRouteEnter] grid`, vm.grid);
         LoadingService.hide();
       });
     },
